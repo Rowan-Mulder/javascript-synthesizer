@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Rowan Mulder">
+    <meta name="description" content="JS Oscillator">
+    <link href="style.css" type="text/css" rel="stylesheet">
+    <script defer src="main.js"></script>
+    <title>JS Oscillator</title>
+</head>
+<body>
+    <main>
+        <div id="keyboardOuterWrapper">
+            <div id="keyboardInnerWrapper">
+                <div id="keyboardControls">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="inputVolume">Volume</label>
+                                </td>
+                                <td>
+                                    <input id="inputVolume" type="range" min="0" step="1" max="100" value="50">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="selectWaveform">Waveform</label>
+                                </td>
+                                <td>
+                                    <select id="selectWaveform">
+                                        <option>Sine</option>
+                                        <option>Sawtooth</option>
+                                        <option>Triangle</option>
+                                        <option>Square</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="selectKeyAmount">Amount of keys</label>
+                                </td>
+                                <td>
+                                    <select id="selectKeyAmount">
+                                        <option>13</option>
+                                        <option>25</option>
+                                        <option selected>37</option>
+                                        <option>49</option>
+                                        <option>61</option>
+                                        <option>73</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="inputScaleOffset">Scale offset</label>
+                                </td>
+                                <td>
+                                    <input id="inputScaleOffset" type="number" min="0" step="1" max="4" value="2">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="keyboard"></div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
