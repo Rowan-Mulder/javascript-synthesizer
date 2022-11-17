@@ -66,7 +66,7 @@ body {
                 }
             .keySharp {
                 border: var(--key-border-width) solid #333;
-                background: #111;
+                background: #222;
                 color: #EEE;
                 z-index: 2;
                 padding-top:  calc((var(--key-height) / 2) - var(--key-padding));
