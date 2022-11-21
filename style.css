@@ -75,6 +75,24 @@ body {
                 .keySharp:hover {
                     background: #222;
                 }
+            .markedPlayable:before {
+                content: attr(data-before-content);
+                background: #F0F1;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: end;
+                line-height: 125px;
+                transition: color 0.1s;
+                color: transparent;
+            }
+            .markedPlayable:hover:before {
+                color: revert;
+            }
 
 
 

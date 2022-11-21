@@ -28,6 +28,10 @@ inputVolume.addEventListener("input", () => {
 inputScaleOffset.addEventListener("input", () => {
     let scaleOffset = inputScaleOffset.value
     oscillatorProperties.scaleOffset = clamp(scaleOffset, 0, 4)
+    if (!keyboardIsGenerated) {
+        return
+    }
+    markPlayableArea()
 })
 selectWaveform.addEventListener("change", () => {
     oscillatorProperties.type = selectWaveform.value.toLowerCase()
@@ -73,7 +77,7 @@ function keyboardPressStart(keyName, delayMs = 0) {
     oscillator.start((delayMs / 1000))
 }
 
-function keyboardPressSlide(keyName, glissandoDurationMs) {
+function keyboardPressSlide(keyName) {
     oscillator.frequency.linearRampToValueAtTime(midiKeyFrequencyCalc(midiNoteNumberCalc(keyName), oscillatorProperties.scaleOffset), audioCtx.currentTime + (glissandoDurationMs / 1000))
 }
 
@@ -105,9 +109,30 @@ function createKeyboard(keyAmount, animationTimeMs = 20) {
                         createKeyboard(queuedKeyboardGeneration)
                         queuedKeyboardGeneration = null
                     }
+                    markPlayableArea()
                 }, animationTimeMs)
             }
         }, i * animationTimeMs)
+    }
+}
+
+function markPlayableArea() {
+    let keys = keyboard.querySelectorAll(".key")
+
+    for (let key of keys) {
+        key.classList.remove("markedPlayable")
+    }
+
+    let areaStart = 13
+    let areaEnd = areaStart + 12
+
+    if (areaEnd > keys.length) {
+        return
+    }
+
+    for (let i = areaStart - 1; i < areaEnd; i++) {
+        keys[i].classList.add("markedPlayable")
+        keys[i].setAttribute("data-before-content", ["q", "2", "w", "3", "e", "r", "5", "t", "6", "y", "7", "u", "i"][i - (areaStart - 1)])
     }
 }
 
@@ -140,7 +165,121 @@ document.addEventListener("pointermove", e => {
         return
     }
 
-    // let fromKey = heldKey
     heldKey = e.target.innerText
-    keyboardPressSlide(heldKey, glissandoDurationMs)
+    keyboardPressSlide(heldKey)
+})
+
+
+
+document.addEventListener("keydown", e => {
+    if (["q", "2", "w", "3", "e", "r", "5", "t", "6", "y", "7", "u", "i"].indexOf(e.key) === -1) {
+        return
+    }
+
+    keyboardPressStop(400)
+
+    let keyPressHandling = (keyHeld) ? keyboardPressSlide : keyboardPressStart
+    let keyName
+
+    switch(e.key) {
+        case "q":
+            keyName = "C2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "2":
+            keyName = "C#2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "w":
+            keyName = "D2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "3":
+            keyName = "D#2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "e":
+            keyName = "E2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "r":
+            keyName = "F2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "5":
+            keyName = "F#2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "t":
+            keyName = "G2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "6":
+            keyName = "G#2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "y":
+            keyName = "A2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "7":
+            keyName = "A#2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "u":
+            keyName = "B2"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+        case "i":
+            keyName = "C3"
+            if (heldKey !== keyName) {
+                heldKey = keyName
+                keyPressHandling(keyName)
+            }
+            break
+    }
+})
+
+document.addEventListener("keyup", e => {
+    if (["q", "2", "w", "3", "e", "r", "5", "t", "6", "y", "7", "u", "i"].indexOf(e.key) === -1) {
+        return
+    }
+
+    keyboardPressStop(0)
 })
