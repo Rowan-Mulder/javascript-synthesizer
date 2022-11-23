@@ -43,6 +43,7 @@ body {
             align-items: start;
         }
             .key {
+                position: relative;
                 display: inline-block;
                 text-align: center;
                 padding: var(--key-height) 0 var(--key-padding) 0;
